@@ -16,7 +16,7 @@ game_router = Router()
 @common_router.message(Command("start"))
 async def send_welcome(message: types.Message):
     """Отправка приветственного сообщения"""
-    await message.answer("Привет! Это игра в русскую рулетку. Нажмите /game, чтобы начать игру.")
+    await message.answer("Привет! Это игра в русскую рулетку. Нажмите /help, чтобы прочитать правила.")
 
 
 @common_router.message(Command("game"))
@@ -26,14 +26,14 @@ async def handle_start_or_reset_game(message: types.Message):
     await start_or_reset_game(message)
 
 
-@game_router.message(Command("self"))
+@game_router.message(F.text == "В себя")
 async def roll_self(message: types.Message):
     """Выстрел в себя"""
     game = get_or_create_user_game(message)
     await roll_trigger(message, game.player)
 
 
-@game_router.message(Command("dealer"))
+@game_router.message(F.text == "В Дилера")
 async def roll_dealer(message: types.Message):
     """Выстрел в дилера"""
     game = get_or_create_user_game(message)
