@@ -13,11 +13,15 @@ def create_main_menu_keyboard(game: RouletteGame) -> ReplyKeyboardMarkup:
     """Создание клавиатуры главного меню"""
     item_buttons = [KeyboardButton(text=item.value) for item in Item if game.player.items.items[item] > 0]
     main_buttons = [
-        [KeyboardButton(text="/self"), KeyboardButton(text="/dealer")]
+        [KeyboardButton(text="В себя"), KeyboardButton(text="В Дилера")]
     ]
     if item_buttons:
         main_buttons.append(item_buttons)
-    return ReplyKeyboardMarkup(keyboard=main_buttons, resize_keyboard=True)
+
+    return ReplyKeyboardMarkup(
+        keyboard=main_buttons, 
+        resize_keyboard=True, 
+    )
 
 
 async def send_message(message: types.Message, text: str) -> None:
